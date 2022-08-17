@@ -1,0 +1,1092 @@
+syntax = "proto3";
+
+package tmf.openapis;
+
+import "google/protobuf/descriptor.proto";
+
+import "google/protobuf/empty.proto";
+
+import "google/protobuf/any.proto";
+
+import "google/protobuf/field_mask.proto";
+
+service TMF620ProductCatalogManagementService {
+
+
+  rpc ListProductOffering (ListProductOfferingRequest) returns (ProductOffering) {
+  }
+
+  rpc CreateProductOffering (CreateProductOfferingRequest) returns (ProductOffering) {
+  }
+
+  rpc RetrieveProductOffering (RetrieveProductOfferingRequest) returns (ProductOffering) {
+  }
+
+  rpc DeleteProductOffering (DeleteProductOfferingRequest) returns (Error) {
+  }
+
+  rpc PatchProductOffering (PatchProductOfferingRequest) returns (ProductOffering) {
+  }
+}
+
+//ListProductOfferingParameters holds parameters to ListProductOffering
+message ListProductOfferingRequest {
+
+  optional google.protobuf.FieldMask fields = 1;
+
+  optional ProductOffering query = 2;
+
+  optional string json_path_query = 3;
+
+  optional int64 offset = 4;
+
+  optional int64 limit = 5;
+
+}
+
+//CreateProductOfferingParameters holds parameters to CreateProductOffering
+message CreateProductOfferingRequest {
+
+  ProductOfferingCreate product_offering = 5;
+}
+
+//RetrieveProductOfferingParameters holds parameters to RetrieveProductOffering
+message RetrieveProductOfferingRequest {
+
+  string id = 5;
+
+  google.protobuf.FieldMask fields = 6;
+
+}
+
+//DeleteProductOfferingParameters holds parameters to DeleteProductOffering
+message DeleteProductOfferingRequest {
+
+  string id = 5;
+
+}
+
+//PatchProductOfferingParameters holds parameters to PatchProductOffering
+message PatchProductOfferingRequest {
+
+  string id = 5;
+
+  ProductOfferingUpdate product_offering = 6;
+
+}
+
+message AgreementRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+
+  string referred_type_url = 7;
+}
+
+
+message Attachment {
+  string id = 1;
+
+  string href = 2;
+
+  string attachment_type = 3;
+
+  string content = 4;
+
+  string description = 5;
+
+  string mime_type = 6;
+
+  string name = 7;
+
+  string url = 8;
+
+  Quantity size = 9;
+
+  TimePeriod valid_for = 10;
+
+  string base_type_url = 11;
+
+  string schema_location_url = 12;
+
+  string type_url = 13;
+}
+
+message AttachmentRef {
+  string id = 1;
+
+  string href = 2;
+
+  string description = 3;
+
+  string name = 4;
+
+  string url = 5;
+
+  string base_type_url = 6;
+
+  string schema_location_url = 7;
+
+  string type_url = 8;
+
+  string referred_type_url = 9;
+}
+
+message AttachmentRefOrValue {
+  string id = 1;
+
+  string href = 2;
+
+  string attachment_type = 3;
+
+  string content = 4;
+
+  string description = 5;
+
+  string mime_type = 6;
+
+  string name = 7;
+
+  string url = 8;
+
+  Quantity size = 9;
+
+  TimePeriod valid_for = 10;
+
+  string base_type_url = 11;
+
+  string schema_location_url = 12;
+
+  string type_url = 13;
+
+  string referred_type_url = 14;
+}
+
+message BundledProductOffering {
+  string id = 1;
+
+  string href = 2;
+
+  string lifecycle_status = 3;
+
+  string name = 4;
+
+  BundledProductOfferingOption bundled_product_offering_option = 5;
+
+  string base_type_url = 6;
+
+  string schema_location_url = 7;
+
+  string type_url = 8;
+}
+
+message BundledProductOfferingOption {
+  int64 number_rel_offer_default = 1;
+
+  int64 number_rel_offer_lower_limit = 2;
+
+  int64 number_rel_offer_upper_limit = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+}
+
+message BundledProductOfferingPriceRelationship {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+}
+
+message BundledProductSpecification {
+  string id = 1;
+
+  string href = 2;
+
+  string lifecycle_status = 3;
+
+  string name = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+}
+
+message CategoryRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string version = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+
+  string referred_type_url = 8;
+}
+
+message ChannelRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+
+  string referred_type_url = 7;
+}
+
+message ConstraintRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string version = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+
+  string referred_type_url = 8;
+}
+
+message EntityRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+
+  string referred_type_url = 7;
+}
+
+message MarketSegmentRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+
+  string referred_type_url = 7;
+}
+
+message Money {
+  string unit = 1;
+
+  float value = 2;
+}
+
+message PlaceRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+
+  string referred_type_url = 7;
+}
+
+message PricingLogicAlgorithm {
+  string id = 1;
+
+  string href = 2;
+
+  string description = 3;
+
+  string name = 4;
+
+  string pla_spec_id = 5;
+
+  TimePeriod valid_for = 6;
+
+  string base_type_url = 7;
+
+  string schema_location_url = 8;
+
+  string type_url = 9;
+}
+
+message ProductOffering {
+  string id = 1;
+
+  string href = 2;
+
+  string description = 3;
+
+  bool is_bundle = 4;
+
+  bool is_sellable = 5;
+
+  string last_update = 6;
+
+  string lifecycle_status = 7;
+
+  string name = 8;
+
+  string status_reason = 9;
+
+  string version = 10;
+
+  repeated AgreementRef agreement = 11;
+
+  repeated AttachmentRefOrValue attachment = 12;
+
+  repeated BundledProductOffering bundled_product_offering = 13;
+
+  repeated CategoryRef category = 14;
+
+  repeated ChannelRef channel = 15;
+
+  repeated MarketSegmentRef market_segment = 16;
+
+  repeated PlaceRef place = 17;
+
+  repeated ProductSpecificationCharacteristicValueUse prod_spec_char_value_use = 18;
+
+  repeated ProductOfferingPriceRef product_offering_price = 19;
+
+  repeated ProductOfferingTerm product_offering_term = 20;
+
+  ProductSpecificationRef product_specification = 21;
+
+  ResourceCandidateRef resource_candidate = 22;
+
+  ServiceCandidateRef service_candidate = 23;
+
+  SLARef service_level_agreement = 24;
+
+  TimePeriod valid_for = 25;
+
+  string base_type_url = 26;
+
+  string schema_location_url = 27;
+
+  string type_url = 28;
+}
+
+message ProductOfferingCreate {
+  string description = 1;
+
+  bool is_bundle = 2;
+
+  bool is_sellable = 3;
+
+  string last_update = 4;
+
+  string lifecycle_status = 5;
+
+  string name = 6;
+
+  string status_reason = 7;
+
+  string version = 8;
+
+  repeated AgreementRef agreement = 9;
+
+  repeated AttachmentRefOrValue attachment = 10;
+
+  repeated BundledProductOffering bundled_product_offering = 11;
+
+  repeated CategoryRef category = 12;
+
+  repeated ChannelRef channel = 13;
+
+  repeated MarketSegmentRef market_segment = 14;
+
+  repeated PlaceRef place = 15;
+
+  repeated ProductSpecificationCharacteristicValueUse prod_spec_char_value_use = 16;
+
+  repeated ProductOfferingPriceRef product_offering_price = 17;
+
+  repeated ProductOfferingTerm product_offering_term = 18;
+
+  ProductSpecificationRef product_specification = 19;
+
+  ResourceCandidateRef resource_candidate = 20;
+
+  ServiceCandidateRef service_candidate = 21;
+
+  SLARef service_level_agreement = 22;
+
+  TimePeriod valid_for = 23;
+
+  string base_type_url = 24;
+
+  string schema_location_url = 25;
+
+  string type_url = 26;
+}
+
+message ProductOfferingUpdate {
+  string description = 1;
+
+  bool is_bundle = 2;
+
+  bool is_sellable = 3;
+
+  string lifecycle_status = 4;
+
+  string name = 5;
+
+  string status_reason = 6;
+
+  string version = 7;
+
+  repeated AgreementRef agreement = 8;
+
+  repeated AttachmentRefOrValue attachment = 9;
+
+  repeated BundledProductOffering bundled_product_offering = 10;
+
+  repeated CategoryRef category = 11;
+
+  repeated ChannelRef channel = 12;
+
+  repeated MarketSegmentRef market_segment = 13;
+
+  repeated PlaceRef place = 14;
+
+  repeated ProductSpecificationCharacteristicValueUse prod_spec_char_value_use = 15;
+
+  repeated ProductOfferingPriceRef product_offering_price = 16;
+
+  repeated ProductOfferingTerm product_offering_term = 17;
+
+  ProductSpecificationRef product_specification = 18;
+
+  ResourceCandidateRef resource_candidate = 19;
+
+  ServiceCandidateRef service_candidate = 20;
+
+  SLARef service_level_agreement = 21;
+
+  TimePeriod valid_for = 22;
+
+  string base_type_url = 23;
+
+  string schema_location_url = 24;
+
+  string type_url = 25;
+}
+
+message ProductOfferingPrice {
+  string id = 1;
+
+  string href = 2;
+
+  string description = 3;
+
+  bool is_bundle = 4;
+
+  string last_update = 5;
+
+  string lifecycle_status = 6;
+
+  string name = 7;
+
+  float percentage = 8;
+
+  string price_type = 9;
+
+  int64 recurring_charge_period_length = 10;
+
+  string recurring_charge_period_type = 11;
+
+  string version = 12;
+
+  repeated BundledProductOfferingPriceRelationship bundled_pop_relationship = 13;
+
+  repeated ConstraintRef constraint = 14;
+
+  repeated PlaceRef place = 15;
+
+  repeated ProductOfferingPriceRelationship pop_relationship = 16;
+
+  Money price = 17;
+
+  repeated PricingLogicAlgorithm pricing_logic_algorithm = 18;
+
+  repeated ProductSpecificationCharacteristicValueUse prod_spec_char_value_use = 19;
+
+  repeated ProductOfferingTerm product_offering_term = 20;
+
+  repeated TaxItem tax = 21;
+
+  Quantity unit_of_measure = 22;
+
+  TimePeriod valid_for = 23;
+
+  string base_type_url = 24;
+
+  string schema_location_url = 25;
+
+  string type_url = 26;
+}
+
+message ProductOfferingPriceRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+
+  string referred_type_url = 7;
+}
+
+message ProductOfferingPriceRelationship {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string relationship_type = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+}
+
+message ProductOfferingRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+
+  string referred_type_url = 7;
+}
+
+message ProductOfferingTerm {
+  string description = 1;
+
+  string name = 2;
+
+  Quantity duration = 3;
+
+  TimePeriod valid_for = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+}
+
+message ProductSpecification {
+  string id = 1;
+
+  string href = 2;
+
+  string brand = 3;
+
+  string description = 4;
+
+  bool is_bundle = 5;
+
+  string last_update = 6;
+
+  string lifecycle_status = 7;
+
+  string name = 8;
+
+  string product_number = 9;
+
+  string version = 10;
+
+  repeated AttachmentRefOrValue attachment = 11;
+
+  repeated BundledProductSpecification bundled_product_specification = 12;
+
+  repeated ProductSpecificationCharacteristic product_spec_characteristic = 13;
+
+  repeated ProductSpecificationRelationship product_specification_relationship = 14;
+
+  repeated RelatedParty related_party = 15;
+
+  repeated ResourceSpecificationRef resource_specification = 16;
+
+  repeated ServiceSpecificationRef service_specification = 17;
+
+  TargetProductSchema target_product_schema = 18;
+
+  TimePeriod valid_for = 19;
+
+  string base_type_url = 20;
+
+  string schema_location_url = 21;
+
+  string type_url = 22;
+}
+
+message ProductSpecificationCreate {
+  string brand = 1;
+
+  string description = 2;
+
+  bool is_bundle = 3;
+
+  string last_update = 4;
+
+  string lifecycle_status = 5;
+
+  string name = 6;
+
+  string product_number = 7;
+
+  string version = 8;
+
+  repeated AttachmentRefOrValue attachment = 9;
+
+  repeated BundledProductSpecification bundled_product_specification = 10;
+
+  repeated ProductSpecificationCharacteristic product_spec_characteristic = 11;
+
+  repeated ProductSpecificationRelationship product_specification_relationship = 12;
+
+  repeated RelatedParty related_party = 13;
+
+  repeated ResourceSpecificationRef resource_specification = 14;
+
+  repeated ServiceSpecificationRef service_specification = 15;
+
+  TargetProductSchema target_product_schema = 16;
+
+  TimePeriod valid_for = 17;
+
+  string base_type_url = 18;
+
+  string schema_location_url = 19;
+
+  string type_url = 20;
+}
+
+message ProductSpecificationUpdate {
+  string brand = 1;
+
+  string description = 2;
+
+  bool is_bundle = 3;
+
+  string lifecycle_status = 4;
+
+  string name = 5;
+
+  string product_number = 6;
+
+  string version = 7;
+
+  repeated AttachmentRefOrValue attachment = 8;
+
+  repeated BundledProductSpecification bundled_product_specification = 9;
+
+  repeated ProductSpecificationCharacteristic product_spec_characteristic = 10;
+
+  repeated ProductSpecificationRelationship product_specification_relationship = 11;
+
+  repeated RelatedParty related_party = 12;
+
+  repeated ResourceSpecificationRef resource_specification = 13;
+
+  repeated ServiceSpecificationRef service_specification = 14;
+
+  TargetProductSchema target_product_schema = 15;
+
+  TimePeriod valid_for = 16;
+
+  string base_type_url = 17;
+
+  string schema_location_url = 18;
+
+  string type_url = 19;
+}
+
+message ProductSpecificationCharacteristic {
+  bool configurable = 1;
+
+  string description = 2;
+
+  bool extensible = 3;
+
+  bool is_unique = 4;
+
+  int64 max_cardinality = 5;
+
+  int64 min_cardinality = 6;
+
+  string name = 7;
+
+  string regex = 8;
+
+  string value_type = 9;
+
+  repeated ProductSpecificationCharacteristicRelationship product_spec_char_relationship = 10;
+
+  repeated ProductSpecificationCharacteristicValue product_spec_characteristic_value = 11;
+
+  TimePeriod valid_for = 12;
+
+  string base_type_url = 13;
+
+  string schema_location_url = 14;
+
+  string type_url = 15;
+}
+
+message ProductSpecificationCharacteristicRelationship {
+  string id = 1;
+
+  string href = 2;
+
+  int64 char_spec_seq = 3;
+
+  string name = 4;
+
+  string relationship_type = 5;
+
+  TimePeriod valid_for = 6;
+
+  string base_type_url = 7;
+
+  string schema_location_url = 8;
+
+  string type_url = 9;
+}
+
+message ProductSpecificationCharacteristicValue {
+  bool is_default = 1;
+
+  string range_interval = 2;
+
+  string regex = 3;
+
+  string unit_of_measure = 4;
+
+  string value_from = 5;
+
+  string value_to = 6;
+
+  string value_type = 7;
+
+  TimePeriod valid_for = 8;
+
+  google.protobuf.Any value = 9;
+
+  string base_type_url = 10;
+
+  string schema_location_url = 11;
+
+  string type_url = 12;
+}
+
+message ProductSpecificationCharacteristicValueUse {
+  string description = 1;
+
+  int64 max_cardinality = 2;
+
+  int64 min_cardinality = 3;
+
+  string name = 4;
+
+  string value_type = 5;
+
+  repeated ProductSpecificationCharacteristicValue product_spec_characteristic_value = 6;
+
+  ProductSpecificationRef product_specification = 7;
+
+  TimePeriod valid_for = 8;
+
+  string base_type_url = 9;
+
+  string schema_location_url = 10;
+
+  string type_url = 11;
+}
+
+message ProductSpecificationRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string version = 4;
+
+  TargetProductSchema target_product_schema = 5;
+
+  string base_type_url = 6;
+
+  string schema_location_url = 7;
+
+  string type_url = 8;
+
+  string referred_type_url = 9;
+}
+
+message ProductSpecificationRelationship {
+  string id = 1;
+
+  string href = 2;
+
+  string relationship_type = 3;
+
+  TimePeriod valid_for = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+}
+
+message Quantity {
+  float amount = 1;
+
+  string units = 2;
+}
+
+message RelatedParty {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string role = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+
+  string referred_type_url = 8;
+}
+
+message ResourceCandidateRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string version = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+
+  string referred_type = 8;
+}
+
+message ResourceSpecificationRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string version = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+
+  string referred_type_url = 8;
+}
+
+message SLARef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+
+  string referred_type_url = 7;
+}
+
+message ServiceCandidateRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string version = 4;
+
+  string base_type_url = 5;
+
+  string schema_location_url = 6;
+
+  string type_url = 7;
+
+  string referred_type_url = 8;
+}
+
+message ServiceSpecificationRef {
+  string id = 1;
+
+  string href = 2;
+
+  string name = 3;
+
+  string version = 4;
+
+  TargetServiceSchema target_service_schema = 5;
+
+  string base_type_url = 6;
+
+  string schema_location_url = 7;
+
+  string type_url = 8;
+
+  string referred_type_url = 9;
+}
+
+message TargetProductSchema {
+  string base_type_url = 1;
+
+  string schema_location_url = 2;
+
+  string type_url = 3;
+}
+
+message TargetServiceSchema {
+  string base_type_url = 1;
+
+  string schema_location_url = 2;
+
+  string type_url = 3;
+}
+
+message TaxItem {
+  string tax_category = 1;
+
+  float tax_rate = 2;
+
+  Money tax_amount = 3;
+
+  string base_type_url = 4;
+
+  string schema_location_url = 5;
+
+  string type_url = 6;
+}
+
+message TimePeriod {
+  string end_date_time = 1;
+
+  string start_date_time = 2;
+}
+
+message EventSubscription {
+  string id = 1;
+
+  string callback = 2;
+
+  string query = 3;
+}
+
+message EventSubscriptionInput {
+  string callback = 1;
+
+  string query = 2;
+}
+
+
+message Error {
+  string code = 1;
+
+  string reason = 2;
+
+  string message = 3;
+
+  string status = 4;
+
+  string reference_error = 5;
+
+  string base_type_url = 6;
+
+  string schema_location_url = 7;
+
+  string type_url = 8;
+}
+
+
