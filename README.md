@@ -1,12 +1,17 @@
-# quarkus-grpc Project
-Use case: TMFXXX GRPC API
-1. Design the proto for a given TMF REST - Postman
-2. explore 3 guidelines
-   1. filtering with elements in GRPC
-   2. patching in GRPC json patch
-   3.   
-3. 2. Implement it with Quarkus & XXXDB?
-4. Write a blog about it
+# OpenAPI to GRPC
+
+The concept is to create a GRPC API from a givn OpenAPI, with all models generated.
+
+Use case: TM720 Digital Identity API
+https://projects.tmforum.org/wiki/display/API/Open+API+Table
+
+1. Use the TMF Open API specification for TMF720 Digital Identity
+2. Use Quarkus GRPC and MongoDB
+3. Generate the Protobuf Schema from the OpenAPI
+4. Generate the Service and Proto Models from the Protobuf Schema
+5. Generate the JSON Model from the OpenAPI as Proto Models cannot be JSON encoded
+6. Use Mapstruct to map the Proto models to the JSON models
+7. Utilize the JSON models to persist and retrieve the objects in MongoDB 
 
 
 ## Running the application in dev mode
