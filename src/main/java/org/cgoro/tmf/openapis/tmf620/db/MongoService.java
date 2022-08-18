@@ -3,11 +3,16 @@ package org.cgoro.tmf.openapis.tmf620.db;
 import io.quarkus.mongodb.reactive.ReactiveMongoClient;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.Json;
+import openapitools.DigitalIdentityCreateOuterClass;
 import org.bson.Document;
 import org.cgoro.tmf.openapis.tmf620.config.MongoConfig;
-import tmf.openapis.Tmf620V4;
+import org.cgoro.tmf.openapis.tmf620.mapper.DigitalIdentityMapper;
+import org.openapitools.model.DigitalIdentity;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.sql.Date;
+import java.time.Clock;
+import java.time.Instant;
 
 @ApplicationScoped
 public class MongoService {
@@ -21,18 +26,16 @@ public class MongoService {
         this.mongoConfig = mongoConfiguration;
     }
 
-    public ReactiveMongoClient getMongoClient() {
-        return mongoClient;
-    }
+    public Uni<String> createDigitalIdentity(DigitalIdentityCreateOuterClass.DigitalIdentityCreate digitalIdentity) {
 
-    //insert productoffering to collection
-    public Uni<Tmf620V4.ProductOffering> createProductOffering(Tmf620V4.ProductOfferingCreate productOffering) {
-        return mongoClient.getDatabase(mongoConfig.getDatabase()).getCollection(mongoConfig.getCollection())
-                .insertOne(Document.parse(Json.encode(productOffering)))
-                .map(result -> {
-                    String _id = result.getInsertedId().asObjectId().getValue().toString();
-                    return Tmf620V4.ProductOffering.newBuilder().setId(_id).build();
-                });
-    }
+        DigitalIdentity digitalIdentityJSONModel = DigitalIdentityMapper.INSTANCE.grpcToJsonModel(digitalIdentity);
+        digitalIdentityJSONModel.setStatus(DigitalIdentityStatus.ACTIVE.toString());
+        digitalIdentityJSONModel.setCreationDate(Date.from(Instant.now(Clock.systemUTC())));
 
+
+        return mongoClient.getDatabase(mongoConfig.getDatabase())
+                .getCollection(mongoConfig.getCollection())
+                .insertOne(Document.parse(Json.encode(digitalIdentityJSONModel)))
+                .map(result -> result.getInsertedId().asObjectId().getValue().toString());
+    }
 }
