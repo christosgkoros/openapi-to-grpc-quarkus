@@ -1,14 +1,18 @@
 package org.cgoro.tmf.openapis.tmf620.grpc;
 
 import com.google.protobuf.Empty;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.util.JsonFormat;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.mutiny.Uni;
 import openapitools.DigitalIdentityOuterClass;
 import openapitools.services.digitalidentityservice.DigitalIdentityService;
 import openapitools.services.digitalidentityservice.DigitalIdentityServiceOuterClass;
+import org.cgoro.tmf.openapis.tmf620.db.DigitalIdentityStatus;
 import org.cgoro.tmf.openapis.tmf620.db.MongoService;
 
 import javax.inject.Inject;
+import java.time.Instant;
 
 @GrpcService
 public class DigitalIdentityServiceImpl implements DigitalIdentityService {
@@ -17,10 +21,34 @@ public class DigitalIdentityServiceImpl implements DigitalIdentityService {
     MongoService mongoService;
     @Override
     public Uni<DigitalIdentityOuterClass.DigitalIdentity> createDigitalIdentity(DigitalIdentityServiceOuterClass.CreateDigitalIdentityRequest request) {
-        Uni<String> id = mongoService.createDigitalIdentity(request.getDigitalIdentity());
-        return id.map(value -> DigitalIdentityOuterClass.DigitalIdentity.newBuilder()
-                .setId(value)
-                .setHref("retrieveDigitalIdentity("+value+")").build());
+        String digitalIdentityCreate;
+        try {
+            digitalIdentityCreate = JsonFormat.printer().print(request.getDigitalIdentity());
+        } catch (InvalidProtocolBufferException e) {
+            throw new RuntimeException(e);
+        }
+
+        DigitalIdentityOuterClass.DigitalIdentity.Builder builder = DigitalIdentityOuterClass.DigitalIdentity.newBuilder();
+        try {
+            JsonFormat.parser().merge(digitalIdentityCreate, builder);
+        } catch (InvalidProtocolBufferException e) {
+            throw new RuntimeException(e);
+        }
+        builder.setCreationDate(Instant.now().toString());
+        builder.setStatus(DigitalIdentityStatus.ACTIVE.toString());
+
+        String digitalIdentity = null;
+        try {
+            digitalIdentity = JsonFormat.printer().print(builder.build());
+        } catch (InvalidProtocolBufferException e) {
+            throw new RuntimeException(e);
+        }
+        return mongoService.createDigitalIdentity(digitalIdentity)
+                .map(id -> {
+                    builder.setId(id);
+                    builder.setHref("retrieveDigitalIdentity(" + id + ")");
+                    return builder.build();
+                });
     }
 
     @Override

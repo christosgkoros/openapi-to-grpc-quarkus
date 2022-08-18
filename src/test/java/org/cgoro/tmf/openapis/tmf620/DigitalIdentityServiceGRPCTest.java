@@ -28,7 +28,7 @@ class DigitalIdentityServiceGRPCTest {
     @Test
     void testCreate() {
 
-        Mockito.when(mongoService.createDigitalIdentity(Mockito.any(DigitalIdentityCreateOuterClass.DigitalIdentityCreate.class)))
+        Mockito.when(mongoService.createDigitalIdentity(Mockito.any(String.class)))
                 .thenReturn(Uni.createFrom().item("12345"));
 
         Uni<DigitalIdentityOuterClass.DigitalIdentity> identity = digitalIdentityService.createDigitalIdentity(
@@ -39,6 +39,7 @@ class DigitalIdentityServiceGRPCTest {
         DigitalIdentityOuterClass.DigitalIdentity identityResponse = identity.await().indefinitely();
         assertEquals("12345", identityResponse.getId());
         assertEquals("retrieveDigitalIdentity(12345)", identityResponse.getHref());
+        assertEquals("ACTIVE", identityResponse.getStatus());
     }
 
 }
