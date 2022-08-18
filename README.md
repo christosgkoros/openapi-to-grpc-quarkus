@@ -1,6 +1,6 @@
 # OpenAPI to GRPC
 
-The concept is to create a GRPC API from a givn OpenAPI, with all models generated.
+The concept is to create a GRPC API from a given OpenAPI, with all models generated from the OpenAPI specification.
 
 Use case: TM720 Digital Identity API
 https://projects.tmforum.org/wiki/display/API/Open+API+Table
