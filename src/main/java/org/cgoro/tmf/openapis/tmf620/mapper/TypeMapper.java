@@ -19,6 +19,16 @@ public class TypeMapper {
         }
     }
 
+    public String map(URI uri){
+        return uri.toString();
+    }
+
+    public String map(Date date) {
+
+        return date.toString();
+
+    }
+
     public Date dateMap(String date) {
         try {
             return new SimpleDateFormat().parse(date);
