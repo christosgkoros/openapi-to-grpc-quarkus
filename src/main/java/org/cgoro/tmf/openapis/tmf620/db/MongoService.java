@@ -1,6 +1,7 @@
 package org.cgoro.tmf.openapis.tmf620.db;
 
 import io.quarkus.mongodb.reactive.ReactiveMongoClient;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import org.bson.Document;
 import org.cgoro.tmf.openapis.tmf620.config.MongoConfig;
@@ -24,5 +25,27 @@ public class MongoService {
                 .getCollection(mongoConfig.getCollection())
                 .insertOne(Document.parse(digitalIdentity))
                 .map(result -> result.getInsertedId().asObjectId().getValue().toString());
+    }
+
+    public Multi<String> getDigitalIdentityList() {
+        return mongoClient.getDatabase(mongoConfig.getDatabase())
+                .getCollection(mongoConfig.getCollection())
+                .find()
+                .map(document -> {
+                    document.append("id",document.get("_id").toString());
+                    document.remove("_id");
+                    return  document.toJson();
+                });
+    }
+
+    public Uni<String> retrieveDigitalIdentity(String id) {
+        return mongoClient.getDatabase(mongoConfig.getDatabase())
+                .getCollection(mongoConfig.getCollection())
+                .find(new Document("_id", id))
+                .map(document -> {
+                    document.append("id",document.get("_id").toString());
+                    document.remove("_id");
+                    return  document.toJson();
+                }).toUni();
     }
 }

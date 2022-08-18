@@ -58,7 +58,22 @@ public class DigitalIdentityServiceImpl implements DigitalIdentityService {
 
     @Override
     public Uni<DigitalIdentityServiceOuterClass.ListDigitalIdentityResponse> listDigitalIdentity(DigitalIdentityServiceOuterClass.ListDigitalIdentityRequest request) {
-        return null;
+        return mongoService.getDigitalIdentityList()
+                .map(json -> {
+                    DigitalIdentityOuterClass.DigitalIdentity.Builder builder = DigitalIdentityOuterClass.DigitalIdentity.newBuilder();
+                    try {
+                        JsonFormat.parser().merge(json, builder);
+                    } catch (InvalidProtocolBufferException e) {
+                        throw new RuntimeException(e);
+                    }
+                    builder.setHref("retrieveDigitalIdentity(" + builder.getId() + ")");
+                    return builder.build();
+                }).collect().asList()
+                .map(list -> {
+                    DigitalIdentityServiceOuterClass.ListDigitalIdentityResponse.Builder builder = DigitalIdentityServiceOuterClass.ListDigitalIdentityResponse.newBuilder();
+                    builder.addAllData(list);
+                    return builder.build();
+                });
     }
 
     @Override
