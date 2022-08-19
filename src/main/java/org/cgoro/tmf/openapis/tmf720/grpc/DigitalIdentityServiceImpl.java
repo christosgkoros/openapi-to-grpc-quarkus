@@ -53,7 +53,8 @@ public class DigitalIdentityServiceImpl implements DigitalIdentityService {
 
     @Override
     public Uni<Empty> deleteDigitalIdentity(DigitalIdentityServiceOuterClass.DeleteDigitalIdentityRequest request) {
-        return null;
+        mongoService.deleteDigitalIdentity(request.getId());
+        return Uni.createFrom().item(Empty.getDefaultInstance());
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.cgoro.tmf.openapis.tmf720;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.google.protobuf.Empty;
 import io.quarkus.grpc.GrpcClient;
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -44,7 +45,7 @@ class DigitalIdentityServiceGRPCTest {
     }
 
     @Test
-    public void testList() {
+    void testList() {
 
         Mockito.when(mongoService.getDigitalIdentityList())
                 .thenReturn(Multi.createFrom().items(
@@ -74,5 +75,22 @@ class DigitalIdentityServiceGRPCTest {
 
         assertEquals("12345", response.getId());
         assertEquals("retrieveDigitalIdentity(12345)", response.getHref());
+    }
+
+    @Test
+    void testRetrieveNotFound() {
+        //TODO: implement
+    }
+    @Test
+    void testDelete() {
+        Empty empty = digitalIdentityService.deleteDigitalIdentity(DigitalIdentityServiceOuterClass.DeleteDigitalIdentityRequest.newBuilder()
+                .setId("12345").build()).await().indefinitely();
+
+        Mockito.verify(mongoService).deleteDigitalIdentity("12345");
+    }
+
+    @Test
+    void testDeleteNotFound() {
+        //TODO: implement
     }
 }

@@ -48,4 +48,10 @@ public class MongoService {
                     return  document.toJson();
                 }).toUni();
     }
+
+    public void deleteDigitalIdentity(String id) {
+        mongoClient.getDatabase(mongoConfig.getDatabase())
+                .getCollection(mongoConfig.getCollection())
+                .deleteOne(new Document("_id", id));
+    }
 }
