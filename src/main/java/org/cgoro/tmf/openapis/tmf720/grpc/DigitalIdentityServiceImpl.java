@@ -1,4 +1,4 @@
-package org.cgoro.tmf.openapis.tmf620.grpc;
+package org.cgoro.tmf.openapis.tmf720.grpc;
 
 import com.google.protobuf.Empty;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -8,8 +8,8 @@ import io.smallrye.mutiny.Uni;
 import openapitools.DigitalIdentityOuterClass;
 import openapitools.services.digitalidentityservice.DigitalIdentityService;
 import openapitools.services.digitalidentityservice.DigitalIdentityServiceOuterClass;
-import org.cgoro.tmf.openapis.tmf620.db.DigitalIdentityStatus;
-import org.cgoro.tmf.openapis.tmf620.db.MongoService;
+import org.cgoro.tmf.openapis.tmf720.db.DigitalIdentityStatus;
+import org.cgoro.tmf.openapis.tmf720.db.MongoService;
 
 import javax.inject.Inject;
 import java.time.Instant;
@@ -83,6 +83,16 @@ public class DigitalIdentityServiceImpl implements DigitalIdentityService {
 
     @Override
     public Uni<DigitalIdentityOuterClass.DigitalIdentity> retrieveDigitalIdentity(DigitalIdentityServiceOuterClass.RetrieveDigitalIdentityRequest request) {
-        return null;
+        return mongoService.retrieveDigitalIdentity(request.getId())
+                .map(json -> {
+                    DigitalIdentityOuterClass.DigitalIdentity.Builder builder = DigitalIdentityOuterClass.DigitalIdentity.newBuilder();
+                    try {
+                        JsonFormat.parser().merge(json, builder);
+                    } catch (InvalidProtocolBufferException e) {
+                        throw new RuntimeException(e);
+                    }
+                    builder.setHref("retrieveDigitalIdentity(" + builder.getId() + ")");
+                    return builder.build();
+                });
     }
 }

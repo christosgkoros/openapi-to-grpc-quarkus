@@ -1,4 +1,4 @@
-package org.cgoro.tmf.openapis.tmf620;
+package org.cgoro.tmf.openapis.tmf720;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,7 +12,7 @@ import openapitools.DigitalIdentityCreateOuterClass;
 import openapitools.DigitalIdentityOuterClass;
 import openapitools.services.digitalidentityservice.DigitalIdentityService;
 import openapitools.services.digitalidentityservice.DigitalIdentityServiceOuterClass;
-import org.cgoro.tmf.openapis.tmf620.db.MongoService;
+import org.cgoro.tmf.openapis.tmf720.db.MongoService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -64,7 +64,7 @@ class DigitalIdentityServiceGRPCTest {
     }
 
     @Test
-    void retrieveDigitalIdentity() {
+    void testRetrieve() {
 
         Mockito.when(mongoService.retrieveDigitalIdentity(Mockito.any(String.class)))
                 .thenReturn(Uni.createFrom().item("{\"id\":\"12345\",\"href\":\"retrieveDigitalIdentity(12345)\",\"status\":\"ACTIVE\"}"));

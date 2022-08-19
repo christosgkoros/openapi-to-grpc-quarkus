@@ -1,4 +1,4 @@
-package org.cgoro.tmf.openapis.tmf620.config;
+package org.cgoro.tmf.openapis.tmf720.config;
 
 import io.smallrye.config.ConfigMapping;
 import io.smallrye.config.WithName;

@@ -1,10 +1,10 @@
-package org.cgoro.tmf.openapis.tmf620.db;
+package org.cgoro.tmf.openapis.tmf720.db;
 
 import io.quarkus.mongodb.reactive.ReactiveMongoClient;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import org.bson.Document;
-import org.cgoro.tmf.openapis.tmf620.config.MongoConfig;
+import org.cgoro.tmf.openapis.tmf720.config.MongoConfig;
 
 import javax.enterprise.context.ApplicationScoped;
 
