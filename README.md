@@ -11,7 +11,7 @@ https://projects.tmforum.org/wiki/display/API/Open+API+Table
 4. Generate the Service and Proto Models from the Protobuf Schema
 7. Utilize the JSONFormat to persist and retrieve the objects in MongoDB 
 
-
+![](C:\Users\GkorosC\Desktop\openapi-grc-diagram.jpg)
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:

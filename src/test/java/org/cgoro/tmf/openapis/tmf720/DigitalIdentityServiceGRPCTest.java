@@ -112,4 +112,9 @@ class DigitalIdentityServiceGRPCTest {
         assertEquals("retrieveDigitalIdentity(12345)", identity.getHref());
         assertEquals(identity.getStatus(), DigitalIdentityStatus.INACTIVE.name());
     }
+
+    @Test
+    void testUpdateNotFound() {
+
+    }
 }
