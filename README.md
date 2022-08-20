@@ -9,9 +9,7 @@ https://projects.tmforum.org/wiki/display/API/Open+API+Table
 2. Use Quarkus GRPC and MongoDB
 3. Generate the Protobuf Schema from the OpenAPI
 4. Generate the Service and Proto Models from the Protobuf Schema
-5. Generate the JSON Model from the OpenAPI as Proto Models cannot be JSON encoded
-6. Use Mapstruct to map the Proto models to the JSON models
-7. Utilize the JSON models to persist and retrieve the objects in MongoDB 
+7. Utilize the JSONFormat to persist and retrieve the objects in MongoDB 
 
 
 ## Running the application in dev mode
