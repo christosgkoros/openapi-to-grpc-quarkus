@@ -6,6 +6,7 @@ import com.google.protobuf.util.JsonFormat;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.mutiny.Uni;
 import openapitools.DigitalIdentityOuterClass;
+import openapitools.DigitalIdentityUpdateOuterClass;
 import openapitools.services.digitalidentityservice.DigitalIdentityService;
 import openapitools.services.digitalidentityservice.DigitalIdentityServiceOuterClass;
 import org.cgoro.tmf.openapis.tmf720.db.DigitalIdentityStatus;
@@ -79,7 +80,23 @@ public class DigitalIdentityServiceImpl implements DigitalIdentityService {
 
     @Override
     public Uni<DigitalIdentityOuterClass.DigitalIdentity> patchDigitalIdentity(DigitalIdentityServiceOuterClass.PatchDigitalIdentityRequest request) {
-        return null;
+        String identity = null;
+        try {
+            identity = JsonFormat.printer().print(request.getDigitalIdentity());
+        } catch (InvalidProtocolBufferException e) {
+            throw new RuntimeException(e);
+        }
+        return mongoService.updateDigitalIdentity(request.getId(), identity)
+                .map(json -> {
+                    DigitalIdentityOuterClass.DigitalIdentity.Builder builder = DigitalIdentityOuterClass.DigitalIdentity.newBuilder();
+                    try {
+                        JsonFormat.parser().merge(json, builder);
+                    } catch (InvalidProtocolBufferException e) {
+                        throw new RuntimeException(e);
+                    }
+                    builder.setHref("retrieveDigitalIdentity(" + builder.getId() + ")");
+                    return builder.build();
+                });
     }
 
     @Override

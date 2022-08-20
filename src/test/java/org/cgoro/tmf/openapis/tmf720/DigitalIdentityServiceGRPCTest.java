@@ -11,8 +11,10 @@ import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import openapitools.DigitalIdentityCreateOuterClass;
 import openapitools.DigitalIdentityOuterClass;
+import openapitools.DigitalIdentityUpdateOuterClass;
 import openapitools.services.digitalidentityservice.DigitalIdentityService;
 import openapitools.services.digitalidentityservice.DigitalIdentityServiceOuterClass;
+import org.cgoro.tmf.openapis.tmf720.db.DigitalIdentityStatus;
 import org.cgoro.tmf.openapis.tmf720.db.MongoService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -92,5 +94,22 @@ class DigitalIdentityServiceGRPCTest {
     @Test
     void testDeleteNotFound() {
         //TODO: implement
+    }
+
+    @Test
+    void testUpdate() {
+
+        Mockito.when(mongoService.updateDigitalIdentity(Mockito.any(String.class), Mockito.any(String.class)))
+                .thenReturn(Uni.createFrom().item("{\"id\":\"12345\",\"href\":\"retrieveDigitalIdentity(12345)\",\"status\":\"INACTIVE\"}"));
+
+        DigitalIdentityOuterClass.DigitalIdentity identity = digitalIdentityService.patchDigitalIdentity(DigitalIdentityServiceOuterClass.PatchDigitalIdentityRequest.newBuilder()
+                .setId("12345")
+                .setDigitalIdentity(DigitalIdentityUpdateOuterClass.DigitalIdentityUpdate.newBuilder()
+                        .setStatus(DigitalIdentityStatus.INACTIVE.name()).build())
+                .build()).await().indefinitely();
+
+        assertEquals("12345", identity.getId());
+        assertEquals("retrieveDigitalIdentity(12345)", identity.getHref());
+        assertEquals(identity.getStatus(), DigitalIdentityStatus.INACTIVE.name());
     }
 }
