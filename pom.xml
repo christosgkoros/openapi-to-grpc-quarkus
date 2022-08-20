@@ -81,7 +81,7 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/openapi/tmf720.yaml</inputSpec>
                             <generatorName>protobuf-schema</generatorName>
-                            <output>${project.basedir}/src/main/proto</output>
+                            <output>${project.basedir}/src/main/proto</output> <!-- feed to Quarkus grpc generator below -->
                             <configOptions>
                                 <outputFolder>src/gen/java</outputFolder>
                             </configOptions>
