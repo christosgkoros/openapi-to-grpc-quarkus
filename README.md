@@ -1,6 +1,6 @@
 # OpenAPI to GRPC
 
-The concept is to create a GRPC API from a givn OpenAPI, with all models generated.
+The concept is to create a GRPC API from a given OpenAPI, with all models generated.
 
 Use case: TM720 Digital Identity API
 https://projects.tmforum.org/wiki/display/API/Open+API+Table
@@ -9,7 +9,7 @@ https://projects.tmforum.org/wiki/display/API/Open+API+Table
 2. Use Quarkus GRPC and MongoDB
 3. Generate the Protobuf Schema from the OpenAPI
 4. Generate the Service and Proto Models from the Protobuf Schema
-7. Utilize the JSONFormat to persist and retrieve the objects in MongoDB 
+7. Utilize protobuf util JSONFormat to persist and retrieve the objects in MongoDB 
 
 ![](C:\Users\GkorosC\Desktop\openapi-grc-diagram.jpg)
 ## Running the application in dev mode
