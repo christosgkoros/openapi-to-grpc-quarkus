@@ -6,7 +6,6 @@ import com.google.protobuf.util.JsonFormat;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.mutiny.Uni;
 import openapitools.DigitalIdentityOuterClass;
-import openapitools.DigitalIdentityUpdateOuterClass;
 import openapitools.services.digitalidentityservice.DigitalIdentityService;
 import openapitools.services.digitalidentityservice.DigitalIdentityServiceOuterClass;
 import org.cgoro.tmf.openapis.tmf720.db.DigitalIdentityStatus;
@@ -22,6 +21,8 @@ public class DigitalIdentityServiceImpl implements DigitalIdentityService {
     MongoService mongoService;
     @Override
     public Uni<DigitalIdentityOuterClass.DigitalIdentity> createDigitalIdentity(DigitalIdentityServiceOuterClass.CreateDigitalIdentityRequest request) {
+
+        //Create the JSON from the DigitalIdentityCreate Object
         String digitalIdentityCreate;
         try {
             digitalIdentityCreate = JsonFormat.printer().print(request.getDigitalIdentity());
@@ -29,8 +30,10 @@ public class DigitalIdentityServiceImpl implements DigitalIdentityService {
             throw new RuntimeException(e);
         }
 
+        //Prepare the Builder for the DigitalIdentity need for Mongo and the Response
         DigitalIdentityOuterClass.DigitalIdentity.Builder builder = DigitalIdentityOuterClass.DigitalIdentity.newBuilder();
         try {
+            //Using the parser transfrom DigitalIdentityCreate to a DigitalIdentity Object
             JsonFormat.parser().merge(digitalIdentityCreate, builder);
         } catch (InvalidProtocolBufferException e) {
             throw new RuntimeException(e);
